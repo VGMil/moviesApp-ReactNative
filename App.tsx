@@ -1,8 +1,11 @@
 import { AppNavigation } from './src/app.navigation';
+import { ThemeProvider } from './src/State/Context/ThemeContext';
 
 
 export default function App() {
   return (
-    <AppNavigation></AppNavigation>
+    <ThemeProvider>
+      <AppNavigation></AppNavigation>
+    </ThemeProvider>
   );
 }

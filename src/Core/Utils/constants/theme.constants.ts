@@ -18,29 +18,29 @@ export interface Theme {
 export const lightTheme: Theme = {
   dark: false,
   colors: {
-    primary: '#FF1E6C',      // Neon pink
-    secondary: '#00F9FF',    // Neon cyan
+    primary: '#E94560',      // Neon pink
+    secondary: '#16C79A',    // Teal
     background: '#FFFFFF',
-    surface: '#F5F5F5',
-    text: '#1A1A1A',
-    textSecondary: '#757575',
-    accent: '#7B42F6',       // Neon purple
-    error: '#FF3B30',
-    border: '#E0E0E0',
+    surface: '#F8F9FA',
+    text: '#212529',
+    textSecondary: '#6C757D',
+    accent: '#8A2BE2',       // Purple
+    error: '#DC3545',
+    border: '#DEE2E6',
   },
 };
 
 export const darkTheme: Theme = {
   dark: true,
   colors: {
-    primary: '#FF1E6C',      // Neon pink
-    secondary: '#00F9FF',    // Neon cyan
-    background: '#121212',
-    surface: '#1E1E1E',
+    primary: '#E94560',      // Neon pink
+    secondary: '#16C79A',    // Teal
+    background: '#1A1A2E',
+    surface: '#16213E',
     text: '#FFFFFF',
-    textSecondary: '#BBBBBB',
-    accent: '#7B42F6',       // Neon purple
-    error: '#FF453A',
-    border: '#2C2C2C',
+    textSecondary: '#ADB5BD',
+    accent: '#8A2BE2',       // Purple
+    error: '#DC3545',
+    border: '#343A40',
   },
 };
