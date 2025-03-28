@@ -15,7 +15,7 @@ export const TabsNavigator = () => {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: theme.colors.surface,
-          borderTopColor: 'transparent', 
+          borderTopColor: 'transparent',
         },
         tabBarActiveTintColor: theme.colors.primary,
       }}>
@@ -24,9 +24,14 @@ export const TabsNavigator = () => {
         component={HomeNavigation}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: () => (
-            <MaterialIcons name="home" size={24} color={theme.colors.primary} />
+          tabBarIcon: ({ focused }) => (
+            <MaterialIcons
+              name="home"
+              size={24}
+              color={focused ? theme.colors.primary : theme.colors.accent}
+            />
           ),
+
         }}
       />
       <Tab.Screen
@@ -34,8 +39,12 @@ export const TabsNavigator = () => {
         component={SearchScreen}
         options={{
           tabBarLabel: 'Search',
-          tabBarIcon: () => (
-            <MaterialIcons name="search" size={24} color={theme.colors.primary} />
+          tabBarIcon: ({ focused }) => (
+            <MaterialIcons
+              name="search"
+              size={24}
+              color={focused ? theme.colors.primary : theme.colors.accent}
+            />
           ),
         }}
       />
@@ -44,8 +53,12 @@ export const TabsNavigator = () => {
         component={TicketScreen}
         options={{
           tabBarLabel: 'Ticket',
-          tabBarIcon: () => (
-            <MaterialIcons name="movie" size={24} color={theme.colors.primary} />
+          tabBarIcon: ({ focused }) => (
+            <MaterialIcons
+              name="movie"
+              size={24}
+              color={focused ? theme.colors.primary : theme.colors.accent}
+            />
           ),
         }}
       />
