@@ -1,28 +1,38 @@
-import { StyleSheet, Switch, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Switch, Text, View } from "react-native";
 import { useTheme } from "../../Hooks/useTheme";
 
 export const DarkSwitch = () => {
     const { theme, toggleTheme } = useTheme();
     
     const styles = StyleSheet.create({
-        Button: {
-            backgroundColor: theme?.colors.primary,
+        container: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
             padding: 10,
-            borderRadius: 8,
         },
-        Texto: {
-            color: theme?.colors.text
+        text: {
+            color: theme?.colors.text,
+            fontSize: 16,
+            fontWeight: '500',
+        },
+        switch: {
+            transform: [{ scale: 1.1 }],
         }
     });
 
     return (
-        <Switch 
-            onValueChange={toggleTheme}
-            style={styles.Button}
-        >
-            <Text style={styles.Texto}>
-                Cambiar Color
+        <View style={styles.container}>
+            <Text style={styles.text}>
+                Change Theme
             </Text>
-        </Switch>
+            <Switch 
+                onValueChange={toggleTheme}
+                value={theme?.dark}
+                trackColor={{ false: theme?.colors.background, true: theme?.colors.primary }}
+                thumbColor={theme?.colors.text}
+                style={styles.switch}
+            />
+        </View>
     );
 }

@@ -8,23 +8,24 @@ export interface HomeProps {
 
 }
 
-export const HomeLayout = ({children}:HomeProps) => {
+export const HomeLayout = ({ children }: HomeProps) => {
   const { theme } = useTheme();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: '100%',
-    height: '90%', // Reduced height to not occupy full screen
-    backgroundColor:theme?.colors.background,
-    
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: 10, // Added horizontal padding
-    marginTop: 10, // Added margin from top
-  }
-});
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      width: '100%',
+      height: '90%', // Reduced height to not occupy full screen
+      backgroundColor: theme?.colors.background,
+
+    },
+    content: {
+      flex: 1,
+      paddingHorizontal: 10, // Added horizontal padding
+      marginTop: 10, // Added margin from top
+      
+    }
+  });
   return (
     <View style={styles.container}>
       <View style={styles.content}>
