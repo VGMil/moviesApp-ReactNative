@@ -1,7 +1,7 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Switch, Text, TouchableOpacity } from "react-native";
 import { useTheme } from "../../Hooks/useTheme";
 
-export const ToogleButton = () => {
+export const DarkSwitch = () => {
     const { theme, toggleTheme } = useTheme();
     
     const styles = StyleSheet.create({
@@ -16,13 +16,13 @@ export const ToogleButton = () => {
     });
 
     return (
-        <TouchableOpacity 
-            onPress={toggleTheme}
+        <Switch 
+            onValueChange={toggleTheme}
             style={styles.Button}
         >
             <Text style={styles.Texto}>
                 Cambiar Color
             </Text>
-        </TouchableOpacity>
+        </Switch>
     );
 }

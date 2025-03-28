@@ -1,13 +1,14 @@
 import { StyleSheet, View } from "react-native"
-import { useTheme } from "../Hooks/useTheme"
+import { useTheme } from "../../../Core/Hooks/useTheme";
+
 
 //Componente que se encarga de mostrar el layout estandar de la aplicacion
-export interface StandardProps {
+export interface HomeProps {
   children: React.ReactNode,
-  title?: string
+
 }
 
-export const StandardLayout = ({children}:StandardProps) => {
+export const HomeLayout = ({children}:HomeProps) => {
   const { theme } = useTheme();
 
 const styles = StyleSheet.create({
@@ -15,12 +16,13 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '90%', // Reduced height to not occupy full screen
-    marginTop: 20, // Added margin from top
-    backgroundColor:theme?.colors.background
+    backgroundColor:theme?.colors.background,
+    
   },
   content: {
     flex: 1,
     paddingHorizontal: 10, // Added horizontal padding
+    marginTop: 10, // Added margin from top
   }
 });
   return (
