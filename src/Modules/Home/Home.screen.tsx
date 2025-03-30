@@ -62,7 +62,7 @@ export const HomeScreen = ({ navigation }: any) => {
       marginTop: 20,
     },
     flatListContent: {
-      gap: 32,
+     
     }
   });
 
@@ -98,7 +98,8 @@ export const HomeScreen = ({ navigation }: any) => {
           bounces={false}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.flatListContent}
-          snapToInterval={width - 31}
+          snapToInterval={width - (width * 0.205)}
+          pagingEnabled
           snapToAlignment="start"
           decelerationRate={0}
           renderItem={({ index, item }) => (
@@ -106,11 +107,12 @@ export const HomeScreen = ({ navigation }: any) => {
               key={item.id}
               title={item.title}
               posterPath={item.backdrop_path}
-              size={width - 64}
+              size={width - 96}
               isFirst={index === 0}
               isLast={index === (data?.results?.length ?? 0) - 1}
             />
           )}
+          
           style={styles.moviesContainer}
         />
       </View>

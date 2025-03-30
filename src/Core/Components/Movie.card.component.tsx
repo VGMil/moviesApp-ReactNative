@@ -17,7 +17,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ title, posterPath, onPress
     const styles = StyleSheet.create({
         container: {
           flex: 1,
-          
+          marginHorizontal: 8,
         },
         poster: {
           aspectRatio: 2 / 3,
@@ -45,6 +45,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ title, posterPath, onPress
           isLast && {
             marginRight: 32,
           },
+          
         ]}>
       <Image
         source={{ uri: getImageUrl(posterPath) }}
