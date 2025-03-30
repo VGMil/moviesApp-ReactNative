@@ -33,7 +33,7 @@ const tabItems: TabItem[] = [
     name: 'Ticket',
     component: TicketScreen,
     label: 'Ticket',
-    iconName: 'movie',
+    iconName: 'local-movies',
     text: 'Ticket'
   }
 ];
@@ -43,12 +43,13 @@ export const TabsNavigator = () => {
   
   const styles = StyleSheet.create({
     activeTab: {
-      backgroundColor: theme.colors.background,
+      backgroundColor: theme.colors.surface,
       borderRadius: 180,
       width: 60,
       height: 60,
       justifyContent: 'center',
       alignItems: 'center',
+      
     },
   });
 
@@ -58,12 +59,19 @@ export const TabsNavigator = () => {
         headerShown: false,
         animation: 'none',
         tabBarStyle: {
-          backgroundColor: theme.colors.background,
+          backgroundColor: theme.colors.surface,
           borderTopColor: 'transparent',
           borderTopWidth: 0,
           height: 70,
-          paddingTop: 10,
+          paddingTop: 14,
           paddingBottom: 10,
+          width: '80%',
+          borderRadius: 180,
+          position: 'absolute',
+          bottom: 20,
+          transform: [{ translateX: '10%' }],
+          elevation: 0,
+          shadowColor: 'transparent',
         },
         tabBarShowLabel: false,
         tabBarButton: (props) => 

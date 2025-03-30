@@ -21,12 +21,12 @@ interface MovieResponse {
 export const HomeScreen = ({ navigation }: any) => {
   const { theme } = useTheme();
   const [isLoading, setIsLoading] = useState(true);
-  const {width, height} = Dimensions.get('window');
+  const { width, height } = Dimensions.get('window');
 
   const handleLoading = (state: boolean): boolean => {
     setTimeout(() => {
       setIsLoading(state);
-    }, 5000);
+    }, 250);
     return state;
   };
 
@@ -65,6 +65,13 @@ export const HomeScreen = ({ navigation }: any) => {
       gap: 32,
     }
   });
+
+  if (isLoading) {
+    return <Loader />; 
+  }
+  if (error) {
+    return <Text>Error: {error.toString()}</Text>;
+  }
   return (
     <ScrollView
       style={styles.container}
@@ -82,36 +89,31 @@ export const HomeScreen = ({ navigation }: any) => {
         </TouchableOpacity>
       </View>
 
-      {isLoading && data == null? <Loader /> :
-      
-        <View>
-          <Text style={styles.CategoryHeader}>Now Playing</Text>
-          <FlatList
-            data={data?.results}
-            keyExtractor={(item) => item.id.toString()}
-            horizontal
-            bounces={false}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.flatListContent}
-            snapToInterval={width - 31}
-            snapToAlignment="start"
-            decelerationRate={0}
-            renderItem={({ index, item }) => (
-              <MovieCard
-                key={item.id}
-                title={item.title}
-                posterPath={item.backdrop_path}
-                size={width  - 64}
-                isFirst={index === 0}
-                isLast={index === (data?.results?.length ?? 0) - 1}
-              />
-            )}
-            style={styles.moviesContainer}
-          />
-        </View>
-
-
-      }
+      <View>
+        <Text style={styles.CategoryHeader}>Now Playing</Text>
+        <FlatList
+          data={data?.results}
+          keyExtractor={(item) => item.id.toString()}
+          horizontal
+          bounces={false}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.flatListContent}
+          snapToInterval={width - 31}
+          snapToAlignment="start"
+          decelerationRate={0}
+          renderItem={({ index, item }) => (
+            <MovieCard
+              key={item.id}
+              title={item.title}
+              posterPath={item.backdrop_path}
+              size={width - 64}
+              isFirst={index === 0}
+              isLast={index === (data?.results?.length ?? 0) - 1}
+            />
+          )}
+          style={styles.moviesContainer}
+        />
+      </View>
     </ScrollView>
   );
 }

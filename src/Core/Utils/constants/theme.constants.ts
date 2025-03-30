@@ -21,7 +21,7 @@ export const lightTheme: Theme = {
     primary: '#E94560',      // Neon pink
     secondary: '#16C79A',    // Teal
     background: '#FFFFFF',
-    surface: '#F8F9FA',
+    surface: '#F0F2F5',
     text: '#212529',
     textSecondary: '#6C757D',
     accent: '#8A2BE2',       // Purple
@@ -36,7 +36,7 @@ export const darkTheme: Theme = {
     primary: '#E94560',      // Neon pink
     secondary: '#16C79A',    // Teal
     background: '#1A1A2E',
-    surface: '#16213E',
+    surface: '#1E1E32',
     text: '#FFFFFF',
     textSecondary: '#ADB5BD',
     accent: '#8A2BE2',       // Purple
