@@ -12,16 +12,17 @@ interface MovieCardProps {
   isLast?: boolean;
 }
 
-export const MovieCard: React.FC<MovieCardProps> = ({ title, posterPath, onPress, size, isFirst, isLast }) => {
+export const MovieCard = React.memo(({ title, posterPath, onPress, size }: MovieCardProps) => {
     const {theme} = useTheme();
     const styles = StyleSheet.create({
-        container: {
-          flex: 1,
-          marginHorizontal: 8,
+        container:{
+          width: size,
         },
         poster: {
           aspectRatio: 2 / 3,
           borderRadius: 20,
+          resizeMode: 'cover',
+          width: size,
         },
         titleContainer: {
           padding: 10,
@@ -34,19 +35,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ title, posterPath, onPress
         },
       });
     return (
-    <TouchableOpacity onPress={onPress} style={[
-        styles.container,
-        {
-            width: size,
-        },
-        isFirst && {
-            marginLeft: 32,
-          },
-          isLast && {
-            marginRight: 32,
-          },
-          
-        ]}>
+    <TouchableOpacity onPress={onPress} style={styles.container}>
       <Image
         source={{ uri: getImageUrl(posterPath) }}
         style={styles.poster}
@@ -60,6 +49,6 @@ export const MovieCard: React.FC<MovieCardProps> = ({ title, posterPath, onPress
       </View>
     </TouchableOpacity>
   );
-};
+});
 
 

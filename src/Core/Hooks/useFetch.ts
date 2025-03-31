@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 interface LoadingHandler {
-  (state: boolean): boolean;
+  (state: boolean): void;
 }
 
 interface FetchState<T> {
