@@ -12,17 +12,17 @@ interface MovieCardProps {
   isLast?: boolean;
 }
 
-export const MovieCard = React.memo(({ title, posterPath, onPress, size }: MovieCardProps) => {
+export const MovieCard = React.memo((props: MovieCardProps) => {
     const {theme} = useTheme();
     const styles = StyleSheet.create({
         container:{
-          width: size,
+          width: props.size,
         },
         poster: {
-          aspectRatio: 2 / 3,
+          aspectRatio: 4 / 3,
           borderRadius: 20,
           resizeMode: 'cover',
-          width: size,
+          width: props.size,
         },
         titleContainer: {
           padding: 10,
@@ -35,20 +35,24 @@ export const MovieCard = React.memo(({ title, posterPath, onPress, size }: Movie
         },
       });
     return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity onPress={props.onPress} style={styles.container}>
       <Image
-        source={{ uri: getImageUrl(posterPath) }}
+        source={{ uri: getImageUrl(props.posterPath) }}
         style={styles.poster}
         resizeMode="cover"
-        width = {size}
+        width = {props.size}
       />
       <View style={styles.titleContainer}>
         <Text style={styles.title} numberOfLines={2}>
-          {title}
+          {props.title}
         </Text>
       </View>
     </TouchableOpacity>
   );
-});
+}, (prev, next) => 
+  prev.title === next.title && 
+  prev.posterPath === next.posterPath &&
+  prev.size === next.size
+);
 
 

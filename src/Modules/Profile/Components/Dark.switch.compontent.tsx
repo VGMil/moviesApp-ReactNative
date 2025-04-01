@@ -1,5 +1,6 @@
 import { StyleSheet, Switch, Text, View } from "react-native";
-import { useTheme } from "../../../../../Core/Hooks/useTheme";
+import { useTheme } from "../../../Core/Hooks/useTheme";
+
 
 export const DarkSwitch = () => {
     const { theme, toggleTheme } = useTheme();

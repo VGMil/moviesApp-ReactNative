@@ -4,7 +4,6 @@ import { StyleSheet, Animated, Text, Dimensions } from 'react-native';
 interface MainListProps {
   data: any[];
   renderItem: ({ item, index }: { item: any, index: number }) => React.ReactElement;
-  keyExtractor?: (item: any, index: number) => string;
   itemSize: number;
   dimensions: {
     width: number;
@@ -16,14 +15,11 @@ interface MainListProps {
 export const MainList: React.FC<MainListProps> = React.memo(({
   data,
   renderItem,
-  keyExtractor = (item: any, index: number) => index.toString(),
   itemSize,
   dimensions,
 
 }) => {
-  if (data.length === 0) {
-    return <Text>No data available</Text>;
-  }
+
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   return (
@@ -41,7 +37,7 @@ export const MainList: React.FC<MainListProps> = React.memo(({
       )}
       scrollEventThrottle={16}
       data={data}
-      keyExtractor={keyExtractor}
+      keyExtractor={(item, index) => index.toString()}
       renderItem={({ item, index }) => {
 
         const inputRange = [
@@ -57,8 +53,8 @@ export const MainList: React.FC<MainListProps> = React.memo(({
 
         const styles = StyleSheet.create({
           container: {
-            marginLeft: index == 0 ? (dimensions.width - itemSize) / 2 : 0,
-            marginRight: index == data.length - 1 ? (dimensions.height - itemSize) / 2 : 0,
+            marginLeft: index == 0 ? ((dimensions.width-20) - itemSize) / 2 : 0,
+            marginRight: index == data.length - 1 ? (dimensions.width - itemSize) / 2 : 0,
           },
         });
 

@@ -1,132 +1,135 @@
-import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useTheme } from '../../Core/Hooks/useTheme';
-import { Loader } from '../../Core/Components/loaders/Loader.component';
 import React, { useState } from 'react';
-import { useFetch } from '../../Core/Hooks/useFetch';
-import { basicApiUrl, API_CONSTANTS } from '../../Core/Utils/constants/api.constants';
+import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { useTheme } from '../../Core/Hooks/useTheme';
+import { Theme } from '../../Core/Utils/constants/theme.constants';
 import { SearchInput } from './Components/search.input.component';
-import { MaterialIcons } from '@expo/vector-icons';
-import { MovieCard } from '../../Core/Components/Movie.card.component';
 import { MainList } from './Components/MainList.flatList.component';
+import { useFetch } from '../../Core/Hooks/useFetch';
+import { API_CONSTANTS, basicApiUrl } from '../../Core/Utils/constants/api.constants';
+import { Movie, MovieResponse } from '../../Core/Utils/types/movie.type';
+import { Loader } from '../../Core/Components/loaders/Loader.component';
+import { MovieCard } from '../../Core/Components/Movie.card.component';
 
-interface Movie {
-  id: number;
-  title: string;
-  backdrop_path: string;
+
+interface HomeScreenProps {
+  // Add any props here if needed
 }
+const {width, height} = Dimensions.get('window');
+const ITEM_SIZE = width*0.7;
 
-interface MovieResponse {
-  results: Movie[];
-}
 
-export const HomeScreen = ({ navigation }: any) => {
-  const { width, height } = Dimensions.get('window');
-  const ITEM_SIZE = width*0.7;
-  const [isLoading, setIsLoading] = useState(true);
+export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }: any) => {
+  const [loading, setLoading] = useState(true);
   const [nowPlaying, setNowPlaying] = useState<Movie[]>([]);
+
 
   const { data:dataNowPlaying, error:ErrorNowPlaying} = useFetch<MovieResponse>(
     basicApiUrl(API_CONSTANTS.TMDB_URL.NOW_PLAYING),
-    setIsLoading
+    setLoading
   );
-  React.useEffect(() => {
-    if (dataNowPlaying) {
+
+  React.useEffect(()=>{
+    if(dataNowPlaying){
       setNowPlaying(dataNowPlaying.results);
     }
     if (ErrorNowPlaying) {
       console.error('Fetch error:', ErrorNowPlaying);
-      setIsLoading(false);
+      setLoading(false);
     }
-  }, [dataNowPlaying]);
+  },[dataNowPlaying])
 
 
-  const { data, error } = useFetch<MovieResponse>(
-    basicApiUrl(API_CONSTANTS.TMDB_URL.POPULAR),
-    setIsLoading,
-  );
-
-
-  if (ErrorNowPlaying) {
-    return <Text>Error: {ErrorNowPlaying.toString()}</Text>;
-  } 
-  if (!isLoading && nowPlaying.length === 0) {
-    return <Text>No movies available</Text>;
+  if(loading){
+    return <Loader></Loader>
+  }else{
+    return <HomeTemplate 
+    navigation={navigation}
+    nowPlaying={nowPlaying}
+    error={ErrorNowPlaying as Error}
+    />;
   }
-  if (isLoading) {
-    return <Loader />;
-  }else  {
+};
+
+const HomeTemplate = ({navigation, nowPlaying, error}:{navigation:any, nowPlaying:Movie[], error?:Error}) => {
+  const {theme} = useTheme();
+  if(error){
+    return <Text>Error: {error.message}</Text>
+  }
+  if(nowPlaying.length === 0){
+    return <Text>No data available</Text>
+  }
   return (
-
-      <ScrollView
-        style={styles().container}
-        bounces={false}
-        contentContainerStyle={styles().scrollViewContent}
-      >
-        <View style={styles().headerContainer}>
-          <SearchInput onSearch={() => 'hola'} />
-          <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-            <MaterialIcons style={styles().icon}
-              name="settings"
+    <ScrollView style={styles(theme).container}>
+      <View style={styles(theme).headerContainer}>
+        <SearchInput onSearch={()=>'hola'}></SearchInput>
+      </View>
+      <View style={styles(theme).backdropContainer}>
+        <Text style={{color: theme.colors.text}}>BackDrop Componet</Text>
+      </View>
+      <View style={styles(theme).nowPlayingContainer}>
+        <MainList 
+          data={nowPlaying}
+          itemSize={ITEM_SIZE}
+          dimensions={{width, height}}
+          renderItem={({item}) =>
+            <MovieCard 
+              key={item.id}
+              title={item.title}
+              posterPath={item.backdrop_path}
+              onPress={() => navigation.navigate('MovieDetail', {id: item.id})}
+              size={ITEM_SIZE}
             />
-          </TouchableOpacity>
-        </View>
+          }
+        />
+      </View>
 
-        <View>
-          <Text style={styles().CategoryHeader}>Now Playing</Text>
-          <MainList
-            dimensions={{ width, height }}
-            itemSize={ITEM_SIZE}
-            data={nowPlaying} 
-            keyExtractor={(_,index) => index.toString()}
-            renderItem={({item}) =>
-              <MovieCard 
-                key={item.id}
-                title={item.title}
-                posterPath={item.backdrop_path}
-                onPress={() => navigation.navigate('MovieDetail', {id: item.id})}
-                size={ITEM_SIZE}
-              />
-            }
-          />
-        </View>
-      </ScrollView>
-    );
-  }
-  }
+      <View style={styles(theme).restContainer}>
+        <Text style={{color: theme.colors.text}}>NowPlaying Componet</Text>
+      </View>
+      <View style={styles(theme).restContainer}>
+        <Text style={{color: theme.colors.text}}>NowPlaying Componet</Text>
+      </View>
+      <View style={styles(theme).restContainer}>
+        <Text style={{color: theme.colors.text}}>NowPlaying Componet</Text>
+      </View>
+    </ScrollView>
+  );
+}
 
-  export const styles =() =>{
-    const { theme } = useTheme();
-    return(
-    StyleSheet.create({
-      container: {
-        flex: 1,
-        backgroundColor: theme.colors.background,
-      },
-      scrollViewContent: {
-        alignItems: 'center',
-      },
-      headerContainer: {
-        flex: 1,
-        paddingRight: 16,
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      },
-      icon:{
-        color:theme.colors.primary,
-        fontSize: 24
-      },
-      CategoryHeader: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: theme.colors.text,
-        marginLeft: 16,
-      },
-      moviesContainer: {
-        marginTop: 20,
-      },
-    })
-  )
-  
-  } 
+
+const styles = (theme:Theme)=>{
+  return(
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+    headerContainer: {
+      alignItems: 'center',
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+    },
+    backdropContainer:{
+      flex: 1,
+      marginTop: 60,
+      height: 70,
+      borderColor: 'red',
+      borderWidth: 1,
+    },
+    nowPlayingContainer:{
+      flex: 1,
+      height: height*0.4,
+    },
+    restContainer:{
+      flex: 1,
+      height: 300,
+      borderColor: 'red',
+      borderWidth: 1
+    }
+}))
+}

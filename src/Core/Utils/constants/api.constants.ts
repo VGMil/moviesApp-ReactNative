@@ -32,6 +32,6 @@ export const IMAGE_SIZES = {
     LARGE: 'original'
 };
 
-export const getImageUrl = (path: string, size: string = IMAGE_SIZES.MEDIUM): string => {
+export const getImageUrl = (path: string, size: string = IMAGE_SIZES.LARGE): string => {
     return `${API_CONSTANTS.TMDB_QUERY.IMAGE}${size}${path}`;
 }

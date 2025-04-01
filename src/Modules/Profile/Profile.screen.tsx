@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { DarkSwitch } from './Components/Dark.switch.compontent';
-import { useTheme } from '../../../../Core/Hooks/useTheme';
-import { NavigationProp } from '@react-navigation/native';
+import { useTheme } from '../../Core/Hooks/useTheme';
 
 
-export const SettingsScreen = ({navigation}:any) => {
+
+
+export const ProfileScreen = ({navigation}:any) => {
   const { theme } = useTheme();
 
   const styles = StyleSheet.create({

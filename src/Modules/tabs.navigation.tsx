@@ -1,10 +1,14 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { HomeNavigation } from "./Home/Home.navigation";
+
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useTheme } from "../Core/Hooks/useTheme";
 import SearchScreen from "./Search/Search.screen";
 import TicketScreen from "./Ticket/Ticket.screen";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
+
+import { HomeScreen } from "./Home/Home.screen";
+import { ProfileScreen } from "./Profile/Profile.screen";
+
 
 const Tab = createBottomTabNavigator();
 type TabItem = {
@@ -14,10 +18,11 @@ type TabItem = {
   iconName: keyof typeof MaterialIcons.glyphMap;
   text: string;
 };
+const {width, height} = Dimensions.get('window');
 const tabItems: TabItem[] = [
   {
-    name: 'HomeTab',
-    component: HomeNavigation,
+    name: 'HomeScreen',
+    component: HomeScreen,
     label: 'Home',
     iconName: 'home',
     text: 'Home'
@@ -35,6 +40,13 @@ const tabItems: TabItem[] = [
     label: 'Ticket',
     iconName: 'local-movies',
     text: 'Ticket'
+  },
+  {
+    name: 'Profile',
+    component: ProfileScreen,
+    label: 'Profile', 
+    iconName: 'person',
+    text: 'Profile'
   }
 ];
 
@@ -65,13 +77,14 @@ export const TabsNavigator = () => {
           height: 70,
           paddingTop: 14,
           paddingBottom: 10,
-          width: '80%',
+          width: width*0.9,
           borderRadius: 180,
           position: 'absolute',
-          bottom: 20,
-          transform: [{ translateX: '10%' }],
+          bottom: 20, 
+          transform: [{ translateX: (width*0.05) / 2 }],
           elevation: 0,
           shadowColor: 'transparent',
+          
         },
         tabBarShowLabel: false,
         tabBarButton: (props) => 
