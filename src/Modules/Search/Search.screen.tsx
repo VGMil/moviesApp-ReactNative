@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useTheme } from '../../Core/Hooks/useTheme';
 
+
 const SearchScreen = () => {
     const { theme } = useTheme();
     const styles = StyleSheet.create({

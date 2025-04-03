@@ -15,14 +15,13 @@ export const StandardLayout = ({ children }: StandardProps) => {
     container: {
       flex: 1,
       width: '100%',
-      height: '90%', // Reduced height to not occupy full screen
+      height: '100%', // Reduced height to not occupy full screen
       backgroundColor: theme?.colors.background,
 
     },
     content: {
       flex: 1,
-      paddingHorizontal: 10, // Added horizontal padding
-      marginTop: 40, // Added margin from top
+      marginTop: 35, // Added margin from top
       
     }
   });

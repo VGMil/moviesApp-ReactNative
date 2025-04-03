@@ -1,7 +1,8 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
-import { useTheme } from '../../../Core/Hooks/useTheme';
+import { useTheme } from '../../Hooks/useTheme';
+
 
 interface SearchInputProps {
   onSearch: (text: string) => void;
